@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laravel</title>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{{URL::asset("css/style.css")}}">
+    <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
 </head>
+
 <body>
     <h1>Formulário</h1>
-    <form  action="{{ route ("formulario.send")}}" method="POST">
+    <form action="{{ route('formulario.send') }}" method="POST">
         @csrf
         <label for="titulo">Título:</label>
         <input type="text" id="titulo" name="titulo"><br><br>
@@ -46,5 +45,26 @@
 
         <input type="submit" value="Enviar">
     </form>
+
+    <!-- Scripts necessários -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+
+    <!-- Script para exibir o toast em caso de erro -->
+    @if ($errors->any())
+        <script>
+            $(document).ready(function() {
+                toastr.options = {
+                    positionClass: 'toast-container',
+                    closeButton: true,
+                    progressBar: true,
+                };
+                toastr.error("{{ $errors->first() }}");
+            });
+        </script>
+    @endif
+
+
 </body>
+
 </html>
